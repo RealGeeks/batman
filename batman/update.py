@@ -2,6 +2,7 @@ import os
 from hashtools import file_has_changed, update_hash
 from run import run
 
+
 def check_and_update(stuff, hash_dir, basedir, config_hash, virtualenv):
     for k, v in stuff.iteritems():
         print "CHECKING {0}".format(k)

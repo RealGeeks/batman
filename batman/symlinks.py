@@ -1,7 +1,9 @@
 import os
 
+
 def normalize_path(path):
     return os.path.abspath(os.path.expanduser(path))
+
 
 def ensure(links, basedir):
     for src, dst in links.iteritems():
@@ -9,6 +11,5 @@ def ensure(links, basedir):
             src = os.path.join(basedir, src)
         dst = normalize_path(dst)
         if not os.path.islink(dst):
-            print "linking {src} to {dst}".format(src=src,dst=dst)
-            os.symlink(src,dst)
-            
+            print "linking {src} to {dst}".format(src=src, dst=dst)
+            os.symlink(src, dst)

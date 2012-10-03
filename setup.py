@@ -12,11 +12,10 @@ setup(
     author_email='me@kevinmccarthy.org',
     url='http://kevinmccarthy.org',
     packages=find_packages(),
-    install_requires=['PyYAML>=3.10','argparse>=1.1'],
+    install_requires=['PyYAML>=3.10', 'argparse>=1.1'],
     entry_points={
         'console_scripts': [
             'batman = batman.main:main',
         ]
     },
 )
-

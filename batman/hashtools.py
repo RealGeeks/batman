@@ -31,10 +31,13 @@ class HashChecker(object):
 
     def has_changed(self):
         if not self.does_hash_match():
-            self.update_hash()
             return True
         return False
 
 def file_has_changed(filename,hash_dir, cfg_hash):
     hc = HashChecker(filename, hash_dir, cfg_hash)
     return hc.has_changed()
+
+def update_hash(filename,hash_dir, cfg_hash):
+    hc = HashChecker(filename, hash_dir, cfg_hash)
+    return hc.update_hash()

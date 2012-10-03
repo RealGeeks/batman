@@ -13,4 +13,4 @@ def main():
     file = basedir + '/.batman.yml'
     cfg = parser.load(file)
     virtualenvs.create_if_not_exists(cfg['virtualenv'])
-    update.check_and_update(cfg['update_on_change'], cfg['hash_dir'], basedir, cfg['hash'])
+    update.check_and_update(cfg['update_on_change'], cfg['hash_dir'], basedir, cfg['hash'], cfg['virtualenv'])

@@ -39,3 +39,7 @@ ensure_symlinks:
   ~/rg2/server_config/nginx.conf: ~/conf/nginx.conf
   ~/.virtualenvs/rg2/lib/python2.7/site-packages/django/contrib/admin/media: ~/rg2/static/media
 ```
+
+## License
+
+This project uses the MIT license. See LICENSE file for more details

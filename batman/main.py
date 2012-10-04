@@ -21,6 +21,10 @@ def main():
     file = os.path.join(basedir, BATMAN_FILE)
     cfg = parser.load(file)
     virtualenvs.create_if_not_exists(cfg['virtualenv'])
+    if cfg.get('add2virtualenv'):
+        virtualenvs.sync_add2virtualenv(cfg['add2virtualenv'])
+    if cfg.get('ensure_symlinks'):
+        symlinks.ensure(cfg['ensure_symlinks'], basedir)
     if cfg.get('update_on_change'):
         update.check_and_update(
             cfg['update_on_change'],
@@ -29,7 +33,3 @@ def main():
             cfg['hash'],
             cfg['virtualenv']
         )
-    if cfg.get('ensure_symlinks'):
-        symlinks.ensure(cfg['ensure_symlinks'], basedir)
-    if cfg.get('add2virtualenv'):
-        virtualenvs.sync_add2virtualenv(cfg['add2virtualenv'])

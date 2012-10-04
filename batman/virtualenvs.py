@@ -12,6 +12,6 @@ def create_if_not_exists(virtualenv_name):
 
 
 def sync_add2virtualenv(paths):
-    run('rm "$(virtualenvwrapper_get_site_packages_dir)/_virtualenv_path_extensions.pth"')
+    run('rm "$(virtualenvwrapper_get_site_packages_dir)/_virtualenv_path_extensions.pth"', virtualenv=True)
     for path in paths:
-        run('add2virtualenv {0}'.format(normalize_path(path)))
+        run('add2virtualenv {0}'.format(normalize_path(path)), virtualenv=True)

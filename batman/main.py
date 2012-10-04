@@ -22,7 +22,7 @@ def main():
     cfg = parser.load(file)
     virtualenvs.create_if_not_exists(cfg['virtualenv'])
     if cfg.get('add2virtualenv'):
-        virtualenvs.sync_add2virtualenv(cfg['add2virtualenv'])
+        virtualenvs.sync_add2virtualenv(cfg['add2virtualenv'], cfg['virtualenv'])
     if cfg.get('ensure_symlinks'):
         symlinks.ensure(cfg['ensure_symlinks'], basedir)
     if cfg.get('update_on_change'):

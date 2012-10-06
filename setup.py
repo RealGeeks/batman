@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='Batman',
-    version='0.3',
+    version='0.3.1',
     description='A deployment toolbelt',
     author='Kevin McCarthy',
     author_email='me@kevinmccarthy.org',

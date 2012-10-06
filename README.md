@@ -22,7 +22,7 @@ You need pip, virtualenv, virtualenvwrapper, and python already installed on you
  * **hash_dir** the temp directory to store hashes in. This is how batman can tell if your files have changed.
  * **add2virutalenv** Add these paths to the virtualenv
  * **update_on_change** Mapping from file to watch to command to run if the file changes
- * **ensure_symlinks** Mapping from symlink source to destination to create symlinks.  You can use paths relative to the project root for src if you want.
+ * **ensure_symlinks** Mapping from symlink name to target to create symlinks.  You can use paths relative to the project root for src if you want.
 
 ## Example .batman.yml (this one is used for our rg2 app)
 
@@ -36,8 +36,8 @@ update_on_change:
   styler/source/template/: "./manage.py run_management_command_on_all_sites restyle --settings=settings.settings_mcp"
 
 ensure_symlinks:
-  ~/rg2/server_config/nginx.conf: ~/conf/nginx.conf
-  ~/.virtualenvs/rg2/lib/python2.7/site-packages/django/contrib/admin/media: ~/rg2/static/media
+  ~/conf/nginx.conf: ~/rg2/server_config/nginx.conf
+  ~/rg2/static/media: ~/.virtualenvs/rg2/lib/python2.7/site-packages/django/contrib/admin/media:
 ```
 
 ## License

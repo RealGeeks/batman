@@ -10,7 +10,7 @@ def ensure(links, basedir):
     for target, link_name in links.iteritems():
         target, link_name = add_basepath(normalize_path(target), basedir), add_basepath(normalize_path(link_name), basedir)
 
-        if not os.path.islink(link_name):
+        if os.path.exists(link_name) and not os.path.islink(link_name):
             # Non-link file exists.  Delete but warn
             print "WARNING: Deleting non-link file {0}".format(link_name)
             os.remove(link_name)

@@ -1,10 +1,10 @@
 from collections import namedtuple
 import subprocess
 
-Result = namedtuple('Result', 'stderr stdout returncode')
+Result = namedtuple('Result', 'output returncode')
 
 
-def run(command, virtualenv=False, in_dir=False):
+def run(command, virtualenv=False, in_dir=False, stderr=subprocess.STDOUT):
     """
     subprocess has the most terrible interface ever.
     Envoy is an option but too heavyweight for this.
@@ -14,7 +14,12 @@ def run(command, virtualenv=False, in_dir=False):
         command = "cd {0} && ".format(in_dir) + command
     if virtualenv:
         command = "workon {0} && ".format(virtualenv) + command
+    output = ''
     runme = ['/bin/bash', '-c', '-l'] + [command]
     po = subprocess.Popen(runme, stdout=subprocess.PIPE)
-    output = po.communicate()
-    return Result(output[0], output[1], po.returncode)
+    while po.poll() is None:
+        line = po.stdout.readline()
+        if line:
+            print line
+            output += line
+    return Result(output, po.returncode)

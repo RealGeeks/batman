@@ -3,7 +3,7 @@ from utils import normalize_path
 
 
 def check_virtualenv_exists(virtualenv_name, shell=True, pty=False, combine_stderr=False):
-    return run('workon {0}'.format(virtualenv_name))[2] == 0
+    return run('workon {0}'.format(virtualenv_name)).returncode == 0
 
 
 def create_if_not_exists(virtualenv_name):

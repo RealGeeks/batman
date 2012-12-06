@@ -1,10 +1,11 @@
 import os
+import sys
+import argparse
 import virtualenvs
 import parser
 import update
 import symlinks
-import sys
-import argparse
+import delete
 
 BATMAN_FILE = '.batman.yml'
 
@@ -25,6 +26,8 @@ def main():
         virtualenvs.sync_add2virtualenv(cfg['add2virtualenv'], cfg['virtualenv'])
     if cfg.get('ensure_symlinks'):
         symlinks.ensure(cfg['ensure_symlinks'], basedir)
+    if cfg.get('delete_pattern'):
+        delete.delete_pattern(cfg['delete_pattern'])
     if cfg.get('update_on_change'):
         update.check_and_update(
             cfg['update_on_change'],

@@ -30,6 +30,7 @@ You need pip, virtualenv, virtualenvwrapper, and python already installed on you
 ```yaml
 virtualenv: rg2
 hash_dir: ~/tmp/hashes/
+delete_pattern: "*.pyc"
 
 update_on_change:
   requirements.txt: "PIP_DOWNLOAD_CACHE=\"$HOME/tmp/pip_cache\" pip install -r requirements.txt"

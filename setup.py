@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 
-import sys
-
 from setuptools import setup, find_packages
 
 setup(
     name='Batman',
-    version='0.4.1',
+    version='0.5.0',
     description='A deployment toolbelt',
     author='Kevin McCarthy',
     author_email='me@kevinmccarthy.org',

@@ -2,13 +2,14 @@ from run import run
 from utils import normalize_path
 
 
-def check_virtualenv_exists(virtualenv_name, shell=True, pty=False, combine_stderr=False):
+def check_virtualenv_exists(virtualenv_name):
     return run('workon {0}'.format(virtualenv_name)).returncode == 0
 
 
 def create_if_not_exists(virtualenv_name):
     if not check_virtualenv_exists(virtualenv_name):
-        run('mkvirtualenv {0}'.format(virtualenv_name))
+        print "virtualenv {0} doesnt exist, creating".format(virtualenv_name)
+        print run('mkvirtualenv {0}'.format(virtualenv_name)).output
 
 
 def sync_add2virtualenv(paths, virtualenv):

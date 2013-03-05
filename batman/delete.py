@@ -1,11 +1,14 @@
 from run import run
 
 
-def delete_pattern(pattern):
+def delete_pattern(directory, pattern):
     """
     Finds and deletes all files matching `pattern`
 
     Be careful with this, for obvious reasons.
     """
 
-    run('find . -name "{0}" -print -delete'.format(pattern))
+    run('cd {0} && find . -name "{1}" -print -delete'.format(
+        directory,
+        pattern
+        ))

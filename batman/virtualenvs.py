@@ -1,5 +1,5 @@
 from run import run
-from utils import normalize_path
+from path_utils import normalize_path
 
 
 def check_virtualenv_exists(virtualenv_name):

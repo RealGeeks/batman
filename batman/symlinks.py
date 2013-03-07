@@ -1,5 +1,5 @@
 import os
-from utils import normalize_path
+from path_utils import normalize_path
 
 
 def add_basepath(path, basedir):

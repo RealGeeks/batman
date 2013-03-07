@@ -14,7 +14,7 @@ setup(
     install_requires=['PyYAML>=3.10', 'argparse>=1.1'],
     entry_points={
         'console_scripts': [
-            'batman = batman.main:main',
+            'batman = batman.main:batmain',
         ]
     },
     classifiers=[

@@ -1,11 +1,12 @@
 import os
 import sys
 import argparse
-import virtualenvs
-import parser
-import update
-import symlinks
-import delete
+from batman import virtualenvs
+from batman import parser
+from batman import update
+from batman import symlinks
+from batman import delete
+from batman import batsignal
 
 BATMAN_FILE = '.batman.yml'
 
@@ -18,6 +19,7 @@ def parse_basedir():
 
 
 def go(basedir, file=BATMAN_FILE):
+    batsignal.alert()
     cfg = parser.load(os.path.join(basedir, file))
     if cfg.get('virtualenv'):
         virtualenvs.create_if_not_exists(cfg['virtualenv'])
@@ -40,7 +42,7 @@ def go(basedir, file=BATMAN_FILE):
         )
 
 
-def main():
+def batmain():
     basedir = parse_basedir()
     go(basedir)
     sys.exit(0)

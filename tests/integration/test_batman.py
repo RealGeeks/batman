@@ -1,10 +1,6 @@
 import os
 from batman.run import run
-from tests.integration.utils import batman_dir
-
-
-def touch_file(path):
-    open(path, 'w')
+from tests.integration.utils import batman_dir, touch_file
 
 
 # Virtualenv support

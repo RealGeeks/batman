@@ -24,7 +24,7 @@ Batman is an *opinionated* library and makes several assumptions about your depl
 
  * **virtualenv** specify the virtualenv to install packages into for this repository
  * **hash_dir** the temp directory to store hashes in. This is how batman can tell if your files have changed.
- * **add2virutalenv** Add these paths to the virtualenv
+ * **add2virutalenv** Add these paths to the virtualenv (this should be a *list*)
  * **update_on_change** Mapping from file to watch to command to run if the file changes
  * **ensure_symlinks** Mapping from symlink name to target to create symlinks.  You can use paths relative to the project root for src if you want.
  * **delete_pattern** command-line glob that will search the directory structure and delete all files matching this pattern.  Be careful with this one!

@@ -1,6 +1,4 @@
 import os
-import shutil
-from batman.main import go
 from batman.run import run
 from tests.integration.utils import batman_dir
 
@@ -15,8 +13,8 @@ def test_that_virtualenv_is_created():
     with batman_dir({"virtualenv": "__batman__testenv"}) as tmp_batman_dir:
         os.system('batman {0}'.format(tmp_batman_dir))
         output = '__batman__testenv' in run('lsvirtualenv').output
-        run("rmvirtualenv __batman__testenv")
-        return output
+    run("rmvirtualenv __batman__testenv")
+    assert output
 
 # Delete support
 
@@ -87,6 +85,17 @@ def test_that_symlinks_are_created():
         os.system('batman {0}'.format(tmp_batman_dir))
         assert os.path.realpath(os.path.join(tmp_batman_dir, 'ravine.txt')) == os.path.join(tmp_batman_dir, 'cotts.txt')
 
+# test_that_add2virtualenv_works
 
-
-
+def test_that_virtualenv_is_created(tmpdir):
+    TEST_PYTHON_FILENAME = '__batman_testfile.py'
+    TEST_VIRTUALENV = '__batman_testenv'
+    test_python_file = os.path.join(str(tmpdir), TEST_PYTHON_FILENAME)
+    with batman_dir({
+        "virtualenv": TEST_VIRTUALENV,
+        "add2virtualenv": [str(tmpdir)],
+    }) as tmp_batman_dir:
+        touch_file(test_python_file)
+        os.system('batman {0}'.format(tmp_batman_dir))
+        output = TEST_PYTHON_FILENAME in run('lssitepackages', virtualenv=TEST_VIRTUALENV).output
+    run("rmvirtualenv {0}".format(TEST_VIRTUALENV))

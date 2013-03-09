@@ -1,6 +1,6 @@
 # BATMAN
 
-A Python deployment toolbelt
+A Python deployment toolbelt [![Build Status](https://travis-ci.org/RealGeeks/batman.png)](https://travis-ci.org/RealGeeks/batman)
 
 ![batman](http://1.bp.blogspot.com/-z0lXpuKOQXQ/UFZE-PjgIPI/AAAAAAAADrM/HrzTbznSYFI/s1600/famous-cartoon-character-batman.jpg)
 
@@ -28,6 +28,13 @@ Batman is an *opinionated* library and makes several assumptions about your depl
  * **update_on_change** Mapping from file to watch to command to run if the file changes
  * **ensure_symlinks** Mapping from symlink name to target to create symlinks.  You can use paths relative to the project root for src if you want.
  * **delete_pattern** command-line glob that will search the directory structure and delete all files matching this pattern.  Be careful with this one!
+
+## Paths
+
+All paths in the .batman.yml file are relative to the directory containing the .batman.yml file.  You can also use `~`, which will expand to 
+the home directory of the user running the `batman` command.
+
+You can also use absolute paths.
 
 ## Example .batman.yml (this one is used for our rg2 app)
 

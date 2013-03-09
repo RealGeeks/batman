@@ -9,6 +9,8 @@ def touch_file(path):
     open(path, 'w')
 
 
+# Virtualenv support
+
 def test_that_virtualenv_is_created():
     with batman_dir({"virtualenv": "__batman__testenv"}) as tmp_batman_dir:
         os.system('batman {0}'.format(tmp_batman_dir))
@@ -16,6 +18,7 @@ def test_that_virtualenv_is_created():
         run("rmvirtualenv __batman__testenv")
         return output
 
+# Delete support
 
 def test_that_files_are_deleted():
     with batman_dir({'delete_pattern': "*.poop"}) as tmp_batman_dir:
@@ -30,6 +33,8 @@ def test_that_files_are_recursively_deleted():
         touch_file(os.path.join(tmp_batman_dir, 'something', 'deleteme.poop'))
         os.system('batman {0}'.format(tmp_batman_dir))
         assert 'deleteme' not in run('ls {0}'.format(tmp_batman_dir)).output
+
+# Update support
 
 
 def test_that_update_on_change_is_run_if_file_is_changed(tmpdir):
@@ -70,3 +75,18 @@ def test_that_update_on_change_is_not_run_if_file_is_not_changed(tmpdir):
         dirlisting = run('ls -la', in_dir=tmp_batman_dir).output
         os.system('batman {0}'.format(tmp_batman_dir))
         assert run('ls -la', in_dir=tmp_batman_dir).output == dirlisting
+
+# Symlink support
+
+def test_that_symlinks_are_created():
+    with batman_dir({
+        "ensure_symlinks": {
+            "cotts.txt": "ravine.txt"
+        }
+    }) as tmp_batman_dir:
+        os.system('batman {0}'.format(tmp_batman_dir))
+        assert os.path.realpath(os.path.join(tmp_batman_dir, 'ravine.txt')) == os.path.join(tmp_batman_dir, 'cotts.txt')
+
+
+
+

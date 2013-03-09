@@ -2,17 +2,11 @@ import os
 from path_utils import normalize_path
 
 
-def add_basepath(path, basedir):
-    if not os.path.isabs(path):
-        path = os.path.join(basedir, path)
-    return  path
-
-
 def ensure(links, basedir):
     for target, link_name in links.iteritems():
         target, link_name = \
-            add_basepath(normalize_path(target), basedir), \
-            add_basepath(normalize_path(link_name), basedir)
+            normalize_path(target, basedir), \
+            normalize_path(link_name, basedir)
         if os.path.exists(link_name) and not os.path.islink(link_name):
             # Non-link file exists.  Delete but warn
             print "WARNING: Deleting non-link file {0}".format(link_name)

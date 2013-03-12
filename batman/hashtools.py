@@ -12,7 +12,7 @@ class HashChecker(object):
         hash_dir = os.path.expanduser(hash_dir)
         if not os.path.exists(hash_dir):
             os.makedirs(hash_dir)
-        self.current_hash_file = os.path.join(hash_dir, file_to_check.replace('/', '_') + '.' + cfg_hash + '.md5')
+        self.current_hash_file = os.path.join(hash_dir, file_to_check.replace('/', '_') + '.' + cfg_hash + '.sha1')
 
     def get_current_hash(self):
         return recursive_hash(self.file_to_check)

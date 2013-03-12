@@ -2,10 +2,15 @@ import os
 import fcntl
 import select
 import subprocess
+from utils import memoize
 from collections import namedtuple
 
 Result = namedtuple('Result', 'output returncode')
 
+@memoize
+def _bash_login_output():
+    output, returncode =  _run_popen(['/usr/bin/env', 'bash', '-l', '-c', ''] ,print_output=False)
+    return output
 
 def _prep_command(command, virtualenv, in_dir):
     if in_dir:
@@ -40,10 +45,13 @@ def _run_popen(command, print_output=False):
                 output += chunk
                 if print_output:
                     print chunk
-
-    return Result(output, po.returncode)
+    return output, po.returncode
 
 
 def run(command, virtualenv=False, in_dir=False, print_output=False):
     command = _prep_command(command, virtualenv, in_dir)
-    return _run_popen(command, print_output=print_output)
+    output, returncode = _run_popen(command, print_output=print_output)
+    if output.endswith(_bash_login_output()):
+        output = output[:-len(_bash_login_output())]
+    return Result(output, returncode)
+

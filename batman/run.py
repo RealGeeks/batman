@@ -2,22 +2,19 @@ import os
 import fcntl
 import select
 import subprocess
-from utils import memoize
 from collections import namedtuple
 
 Result = namedtuple('Result', 'output returncode')
 
-@memoize
-def _bash_login_output():
-    output, returncode =  _run_popen(['/usr/bin/env', 'bash', '-l', '-c', ''] ,print_output=False)
-    return output
 
 def _prep_command(command, virtualenv, in_dir):
+    prefix = 'WORKON_HOME=$HOME/.virtualenvs&&VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"&&source virtualenvwrapper.sh &&'
     if in_dir:
-        command = "cd {0} && ".format(in_dir) + command
+        prefix += "cd {0} && ".format(in_dir)
     if virtualenv:
-        command = "workon {0} && ".format(virtualenv) + command
-    return ['/usr/bin/env', 'bash', '-l', '-c'] + [command]
+        prefix += "workon {0} && ".format(virtualenv)
+    print ['/usr/bin/env', 'bash', '-c'] + [prefix + command]
+    return ['/usr/bin/env', 'bash', '-c'] + [prefix + command]
 
 
 def _run_popen(command, print_output=False):
@@ -45,13 +42,10 @@ def _run_popen(command, print_output=False):
                 output += chunk
                 if print_output:
                     print chunk
-    return output, po.returncode
+    return Result(output, po.returncode)
 
 
 def run(command, virtualenv=False, in_dir=False, print_output=False):
     command = _prep_command(command, virtualenv, in_dir)
-    output, returncode = _run_popen(command, print_output=print_output)
-    if output.endswith(_bash_login_output()):
-        output = output[:-len(_bash_login_output())]
-    return Result(output, returncode)
+    return _run_popen(command, print_output=print_output)
 

@@ -21,12 +21,16 @@ def _run_popen(command, print_output=False):
     subprocess has the most terrible interface ever.
     Envoy is an option but too heavyweight for this.
     This is a convenience wrapper around subprocess.Popen.
+
+    Also, this merges STDOUT and STDERR together, since
+    there isn't a good way of interleaving them without
+    threads.
     """
     output = ''
     po = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
     )
     fcntl.fcntl(
         po.stdout.fileno(),
@@ -34,13 +38,13 @@ def _run_popen(command, print_output=False):
         fcntl.fcntl(po.stdout.fileno(), fcntl.F_GETFL) | os.O_NONBLOCK,
     )
     while po.poll() is None:
-        for stream in [po.stdout, po.stderr]:
-            readx = select.select([stream.fileno()], [], [])[0]
-            if readx:
-                chunk = stream.read()
-                output += chunk
-                if print_output:
-                    print chunk
+        stream = po.stdout
+        readx = select.select([stream.fileno()], [], [])[0]
+        if readx:
+            chunk = stream.read()
+            output += chunk
+            if print_output:
+                print chunk
     return Result(output, po.returncode)
 
 

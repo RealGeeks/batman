@@ -11,7 +11,7 @@ setup(
     url='https://github.com/realgeeks/batman',
     packages=find_packages(),
     license='MIT',
-    install_requires=['PyYAML>=3.10', 'argparse>=1.1'],
+    install_requires=['PyYAML==3.10', 'argparse==1.2.1', 'virtualenvwrapper==3.6'],
     entry_points={
         'console_scripts': [
             'batman = batman.main:batmain',

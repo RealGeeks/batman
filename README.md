@@ -17,7 +17,7 @@ Batman should be called by an automated deployment script, but you can call it m
 Batman is an *opinionated* library and makes several assumptions about your deployment target platform.
 
 1. You need pip, virtualenv, virtualenvwrapper, bash, and python already installed on your deployment target.  
-2. virtualenvwrapper should be installed for the python executable located at /usr/bin/python
+2. virtualenvwrapper should be installed and working in the environment where you execute batman
 3. Since it uses the `select()` and  `fcntl()` system calls, Batman probably only works on linux systems.
 4. `virtualenvwrapper.sh` should be in your PATH on your deploy target machine
 

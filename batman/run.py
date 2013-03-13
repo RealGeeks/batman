@@ -8,7 +8,7 @@ Result = namedtuple('Result', 'output returncode')
 
 
 def _prep_command(command, virtualenv, in_dir):
-    prefix = 'WORKON_HOME=$HOME/.virtualenvs&&VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"&&source virtualenvwrapper.sh &&'
+    prefix = 'WORKON_HOME=$HOME/.virtualenvs && source virtualenvwrapper.sh &&'
     if in_dir:
         prefix += "cd {0} && ".format(in_dir)
     if virtualenv:

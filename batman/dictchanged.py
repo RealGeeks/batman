@@ -4,7 +4,7 @@ import ast
 OLD_DICT_FILENAME = 'old_dict.txt'
 
 def _old_dict_filename(persist_dir):
-    return os.path.join(persist_dir, OLD_DICT_FILENAME)
+    return os.path.join(os.path.expanduser(persist_dir), OLD_DICT_FILENAME)
 
 def _write_old_dict(input, persist_dir):
     with open(_old_dict_filename(persist_dir), 'w+') as f:

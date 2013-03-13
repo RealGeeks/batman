@@ -7,7 +7,7 @@ def _old_dict_filename(persist_dir):
     return os.path.join(persist_dir, OLD_DICT_FILENAME)
 
 def _write_old_dict(input, persist_dir):
-    with open(_old_dict_filename(persist_dir), 'wc') as f:
+    with open(_old_dict_filename(persist_dir), 'w+') as f:
         f.write(str(input))
 
 def _load_old_dict(persist_dir):

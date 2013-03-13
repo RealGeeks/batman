@@ -16,9 +16,11 @@ Batman should be called by an automated deployment script, but you can call it m
 
 Batman is an *opinionated* library and makes several assumptions about your deployment target platform.
 
-1. You need pip, virtualenv, virtualenvwrapper, and python already installed on your deployment target.  
-2. Since it uses the `select()` and  `fcntl()` system calls, Batman probably only works on linux systems.
-3. You need the `bash` shell configured correctly to load `virtualenvwrapper` automatically, using the `.bashrc` or `.profile` on your deploy target.
+1. You need pip, virtualenv, virtualenvwrapper, bash, and python already installed on your deployment target.  
+2. virtualenvwrapper should be installed for the python executable located at /usr/bin/python
+3. Since it uses the `select()` and  `fcntl()` system calls, Batman probably only works on linux systems.
+4. `virtualenvwrapper.sh` should be in your PATH on your deploy target machine
+
 
 ## .batman.yml
 
@@ -36,7 +38,7 @@ the home directory of the user running the `batman` command.
 
 You can also use absolute paths.
 
-## Example .batman.yml (this one is used for our rg2 app)
+## Example .batman.yml (this one is used for the RealGeeks internal rg2 app)
 
 ```yaml
 virtualenv: rg2
@@ -52,6 +54,23 @@ ensure_symlinks:
   ~/conf/nginx.conf: ~/rg2/server_config/nginx.conf
   ~/rg2/static/media: ~/.virtualenvs/rg2/lib/python2.7/site-packages/django/contrib/admin/media:
 ```
+
+## Other notes
+
+The `update_on_change` key can take any glob that bash can expand.  For example:
+
+```yaml
+update_on_change:
+    "*/migrations/*": "./manage.py migrate"
+```
+
+The update_on_change commands will only be rerun if one the following conditions are met:
+
+  1. The command changes in the `.batman.yml` file
+  2. The command was just added to the `.batman.yml` file
+  3. The contents of the file (or any of the files matching the glob) in the key are changed
+
+Whether or not a file is changed is based on the hash of the file, *not* the modified time.
 
 ## License
 

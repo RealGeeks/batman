@@ -7,12 +7,12 @@ def recursive_hash(dir):
 
 
 class HashChecker(object):
-    def __init__(self, file_to_check, hash_dir, cfg_hash):
+    def __init__(self, file_to_check, hash_dir):
         self.file_to_check = file_to_check
         hash_dir = os.path.expanduser(hash_dir)
         if not os.path.exists(hash_dir):
             os.makedirs(hash_dir)
-        self.current_hash_file = os.path.join(hash_dir, file_to_check.replace('/', '_') + '.' + cfg_hash + '.sha1')
+        self.current_hash_file = os.path.join(hash_dir, file_to_check.replace('/', '_') + '.sha1')
 
     def get_current_hash(self):
         return recursive_hash(self.file_to_check)
@@ -37,11 +37,11 @@ class HashChecker(object):
         return False
 
 
-def file_has_changed(filename, hash_dir, cfg_hash):
-    hc = HashChecker(filename, hash_dir, cfg_hash)
+def file_has_changed(filename, hash_dir):
+    hc = HashChecker(filename, hash_dir)
     return hc.has_changed()
 
 
-def update_hash(filename, hash_dir, cfg_hash):
-    hc = HashChecker(filename, hash_dir, cfg_hash)
+def update_hash(filename, hash_dir):
+    hc = HashChecker(filename, hash_dir)
     return hc.update_hash()

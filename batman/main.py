@@ -37,7 +37,6 @@ def go(basedir, file=BATMAN_FILE):
             cfg['update_on_change'],
             cfg['hash_dir'],
             basedir,
-            cfg['hash'],
             cfg.get('virtualenv'),
         )
 

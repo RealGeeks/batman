@@ -13,7 +13,6 @@ def _prep_command(command, virtualenv, in_dir):
         prefix += "cd {0} && ".format(in_dir)
     if virtualenv:
         prefix += "workon {0} && ".format(virtualenv)
-    print ['/usr/bin/env', 'bash', '-c'] + [prefix + command]
     return ['/usr/bin/env', 'bash', '-c'] + [prefix + command]
 
 

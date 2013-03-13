@@ -12,9 +12,30 @@ Batman should be called by an automated deployment script, but you can call it m
 
 `batman /full/path/to/project`
 
+## Installation
+Batman is in pip, so you should be able to:
+
+```
+pip install batman
+```
+
+and it will be installed.  I usually install Batman in the system site-packages, since a big advantage of using Batman is that it manages your virtual environments for you.
+
+## Motivations
+
+I had a lot of code that always ended up in my deployment scripts that all did the same things:
+
+1. If a file changes, do X
+2. If a virtualenv doesn't exist, create it
+3. Add paths to a virtualenv
+4. Add symlinks if they don't already exist
+5. Delete files if they exist
+
+Now my fabric scripts just call batman, and I can eliminate the code from my deployment scripts.
+
 ## Assumptions
 
-Batman is an *opinionated* library and makes several assumptions about your deployment target platform.
+Batman is an *opinionated* tool and makes several assumptions about your deployment target platform.
 
 1. You need pip, virtualenv, virtualenvwrapper, bash, and python already installed on your deployment target.  
 2. virtualenvwrapper should be installed and working in the environment where you execute batman

@@ -6,7 +6,12 @@ OLD_DICT_FILENAME = 'old_dict.txt'
 def _old_dict_filename(persist_dir):
     return os.path.join(os.path.expanduser(persist_dir), OLD_DICT_FILENAME)
 
+def _make_dirs_if_not_exists(persist_dir):
+    if not os.path.exists(persist_dir):
+        os.makedirs(persist_dir)
+
 def _write_old_dict(input, persist_dir):
+    _make_dirs_if_not_exists(persist_dir)
     with open(_old_dict_filename(persist_dir), 'w+') as f:
         f.write(str(input))
 

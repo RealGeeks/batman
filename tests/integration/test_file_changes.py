@@ -67,3 +67,18 @@ def test_wildcard_expansion(tmpdir):
         run('echo "bleh" > {0}'.format(os.path.join(tmp_batman_dir, 'imhere.txt')))
         assert run('cat onedot.txt', in_dir=tmp_batman_dir).output == '.\n.\n'
 
+def test_create_old_dict_if_not_exists(tmpdir):
+    """
+    If the hashdir doesnt exist, create it.
+    """
+    test_hashdir = os.path.join(str(tmpdir), 'hashdir/')
+
+    with batman_dir({
+        "hash_dir": test_hashdir,
+        "update_on_change": {
+            "monkey.txt": "echo '.' >> onedot.txt"
+        }
+    }) as tmp_batman_dir:
+        os.system('batman {0}'.format(tmp_batman_dir))
+        assert(os.path.isfile(os.path.join(test_hashdir, 'old_dict.txt')))
+

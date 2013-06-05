@@ -18,5 +18,5 @@ def batman_dir(definition):
 
 
 def update_batman_yml(tmp_batman_dir, new_yml_dict):
-        with open(os.path.join(tmp_batman_dir,'.batman.yml'),'a') as yml_file:
-            yaml.dump(new_yml_dict, yml_file)
+    with open(os.path.join(tmp_batman_dir,'.batman.yml'),'a') as yml_file:
+        yaml.dump(new_yml_dict, yml_file)

@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='Batman',
-    version='0.5.2',
+    version='0.5.3',
     description='A deployment toolbelt',
     author='Kevin McCarthy',
     author_email='me@kevinmccarthy.org',
@@ -18,7 +18,7 @@ setup(
         ]
     },
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Programming Language :: Python',

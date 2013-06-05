@@ -27,7 +27,7 @@ def test_that_on_update_commands_dont_get_rerun(tmpdir):
     test_yml = {
         "hash_dir": str(tmpdir),
         "update_on_change": {
-            "monkey.txt": "echo '.' >> onedot.txt"
+            "monkey.txt": "echo -ne '.' >> onedot.txt"
         }
     }
     with batman_dir(test_yml) as tmp_batman_dir:
@@ -36,27 +36,27 @@ def test_that_on_update_commands_dont_get_rerun(tmpdir):
         test_yml['update_on_change']['walrus.txt'] = 'touch bucket.txt'
         update_batman_yml(tmp_batman_dir, test_yml)
         os.system('batman {0}'.format(tmp_batman_dir))
-        assert run('cat onedot.txt', in_dir=tmp_batman_dir).output == '.\n'
+        assert run('cat onedot.txt', in_dir=tmp_batman_dir).output == '.'
 
 def test_that_on_update_commands_still_get_rerun_if_file_is_updated(tmpdir):
     test_yml = {
         "hash_dir": str(tmpdir),
         "update_on_change": {
-            "monkey.txt": "echo '.' >> onedot.txt"
+            "monkey.txt": "echo -ne '.' >> onedot.txt"
         }
     }
     with batman_dir(test_yml) as tmp_batman_dir:
         touch_file(os.path.join(tmp_batman_dir, 'monkey.txt'))
         os.system('batman {0}'.format(tmp_batman_dir))
-        run('echo "updated" > monkey.txt', in_dir=tmp_batman_dir)
+        run('echo -ne "updated" > monkey.txt', in_dir=tmp_batman_dir)
         os.system('batman {0}'.format(tmp_batman_dir))
-        assert run('cat onedot.txt', in_dir=tmp_batman_dir).output == '.\n.\n'
+        assert run('cat onedot.txt', in_dir=tmp_batman_dir).output == '..'
 
 def test_wildcard_expansion(tmpdir):
     with batman_dir({
         "hash_dir": str(tmpdir),
         "update_on_change": {
-            "*/migrations/*": "echo '.' >> onedot.txt"
+            "*/migrations/*": "echo -ne '.' >> onedot.txt"
         }
     }) as tmp_batman_dir:
         testpath = os.path.join(tmp_batman_dir, 'testapp', 'migrations')
@@ -65,7 +65,7 @@ def test_wildcard_expansion(tmpdir):
         touch_file(os.path.join(testpath, 'imhere.txt'))
         os.system('batman {0}'.format(tmp_batman_dir))
         run('echo "bleh" > {0}'.format(os.path.join(tmp_batman_dir, 'imhere.txt')))
-        assert run('cat onedot.txt', in_dir=tmp_batman_dir).output == '.\n.\n'
+        assert run('cat onedot.txt', in_dir=tmp_batman_dir).output == '..'
 
 def test_create_old_dict_if_not_exists(tmpdir):
     """
@@ -76,9 +76,30 @@ def test_create_old_dict_if_not_exists(tmpdir):
     with batman_dir({
         "hash_dir": test_hashdir,
         "update_on_change": {
-            "monkey.txt": "echo '.' >> onedot.txt"
+            "monkey.txt": "echo -ne '.' >> onedot.txt"
         }
     }) as tmp_batman_dir:
         os.system('batman {0}'.format(tmp_batman_dir))
-        assert(os.path.isfile(os.path.join(test_hashdir, 'old_dict.txt')))
+        assert(os.path.isfile(os.path.join(test_hashdir, 'old_dict.yml')))
+
+def test_that_order_is_preserved(tmpdir):
+    """
+    If the hashdir doesnt exist, create it.
+    """
+
+    with batman_dir({
+        "hash_dir": str(tmpdir),
+        "update_on_change": {
+            "a": "echo -ne 'a' >> alpha.txt",
+            "b": "echo -ne 'b' >> alpha.txt",
+            "c": "echo -ne 'c' >> alpha.txt",
+            "d": "echo -ne 'd' >> alpha.txt",
+            "e": "echo -ne 'e' >> alpha.txt",
+            "f": "echo -ne 'f' >> alpha.txt",
+            "g": "echo -ne 'g' >> alpha.txt",
+            "h": "echo -ne 'h' >> alpha.txt",
+        }
+    }) as tmp_batman_dir:
+        os.system('batman {0}'.format(tmp_batman_dir))
+        assert run('cat alpha.txt', in_dir=tmp_batman_dir).output == 'abcdefgh'
 

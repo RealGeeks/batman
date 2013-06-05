@@ -93,6 +93,11 @@ The update_on_change commands will only be rerun if one the following conditions
 
 Whether or not a file is changed is based on the hash of the file, *not* the modified time.
 
+## Changelog
+
+_0.6.0_ Change internal serialization format to yaml isntead of python literal syntax.  This will make all of your `update_on_change` stuff run, so I'm doing a minor version bump.
+_0.5 and below_ : I didn't keep track of my changes
+
 ## License
 
 This project uses the MIT license. See LICENSE file for more details

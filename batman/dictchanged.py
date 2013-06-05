@@ -1,7 +1,8 @@
 import os
-import ast
+import yaml
+from batman.yaml_ordered_dict import OrderedDictYAMLLoader
 
-OLD_DICT_FILENAME = 'old_dict.txt'
+OLD_DICT_FILENAME = 'old_dict.yml'
 
 def _old_dict_filename(persist_dir):
     return os.path.join(os.path.expanduser(persist_dir), OLD_DICT_FILENAME)
@@ -13,11 +14,12 @@ def _make_dirs_if_not_exists(persist_dir):
 def _write_old_dict(input, persist_dir):
     _make_dirs_if_not_exists(os.path.expanduser(persist_dir))
     with open(_old_dict_filename(persist_dir), 'w+') as f:
-        f.write(str(input))
+        f.write(yaml.dump(input))
 
 def _load_old_dict(persist_dir):
     try:
-        return ast.literal_eval(open(_old_dict_filename(persist_dir)).read())
+        contents = open(_old_dict_filename(persist_dir)).read()
+        return yaml.load(contents, Loader=OrderedDictYAMLLoader)
     except IOError:
         return {}
 

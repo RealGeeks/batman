@@ -4,14 +4,14 @@ from setuptools import setup, find_packages
 
 setup(
     name='Batman',
-    version='0.5.0',
+    version='0.5.1',
     description='A deployment toolbelt',
     author='Kevin McCarthy',
     author_email='me@kevinmccarthy.org',
     url='https://github.com/realgeeks/batman',
     packages=find_packages(),
     license='MIT',
-    install_requires=['PyYAML==3.10', 'argparse==1.2.1', 'virtualenvwrapper==3.6'],
+    install_requires=['PyYAML==3.10', 'argparse==1.2.1', 'virtualenvwrapper==4.0'],
     entry_points={
         'console_scripts': [
             'batman = batman.main:batmain',

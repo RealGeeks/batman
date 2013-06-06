@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 
+import sys
 from setuptools import setup, find_packages
+
+install_requires = ['PyYAML==3.10', 'virtualenvwrapper==4.0']
+
+if sys.version_info < (2, 7):
+    install_requires += ['ordereddict==1.1', 'argparse==1.2.1']
 
 setup(
     name='Batman',
@@ -11,7 +17,7 @@ setup(
     url='https://github.com/realgeeks/batman',
     packages=find_packages(),
     license='MIT',
-    install_requires=['PyYAML==3.10', 'argparse==1.2.1', 'virtualenvwrapper==4.0'],
+    install_requires=install_requires,
     entry_points={
         'console_scripts': [
             'batman = batman.main:batmain',
@@ -27,3 +33,5 @@ setup(
         'License :: OSI Approved :: MIT License',
     ],
 )
+
+

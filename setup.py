@@ -3,14 +3,14 @@
 import sys
 from setuptools import setup, find_packages
 
-install_requires = ['PyYAML==3.10', 'virtualenvwrapper==4.0']
+install_requires = ['PyYAML==3.10', 'virtualenvwrapper==4.0'] #virtualenvwrapper 4.1.1 has broken packaging
 
 if sys.version_info < (2, 7):
     install_requires += ['ordereddict==1.1', 'argparse==1.2.1']
 
 setup(
     name='Batman',
-    version='0.6.0',
+    version='0.6.2',
     description='A deployment toolbelt',
     author='Kevin McCarthy',
     author_email='me@kevinmccarthy.org',

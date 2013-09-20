@@ -3,7 +3,7 @@ from run import run
 
 
 def recursive_hash(dir):
-    return run('tar -c {0} 2> /dev/null | sha1sum'.format(dir))[0]
+    return run('find {0} -type f -print0 | sort -z | xargs -0 sha1sum | sha1sum'.format(dir))[0]
 
 
 class HashChecker(object):

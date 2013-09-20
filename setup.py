@@ -10,7 +10,7 @@ if sys.version_info < (2, 7):
 
 setup(
     name='Batman',
-    version='0.6.2',
+    version='0.7.0',
     description='A deployment toolbelt',
     author='Kevin McCarthy',
     author_email='me@kevinmccarthy.org',

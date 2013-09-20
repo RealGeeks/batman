@@ -95,6 +95,7 @@ Whether or not a file is changed is based on the hash of the file, *not* the mod
 
 ## Changelog
 
+_0.7.0_ Update hashing method to remove the use of `tar`, since I don't really care about modified times (just file contents) and tar seems to behave differently on different systems.
 _0.6.2_ Unump virtualenvwrapper version [since it broke installation](https://bitbucket.org/dhellmann/virtualenvwrapper/issue/199/packaging-problem-unable-to-use)
 _0.6.1_ Bump virtualenvwrapper version
 _0.6.0_ Change internal serialization format to yaml isntead of python literal syntax.  This will make all of your `update_on_change` stuff run, so I'm doing a minor version bump.

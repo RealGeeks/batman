@@ -4,6 +4,10 @@ A Python deployment toolbelt [![Build Status](https://travis-ci.org/RealGeeks/ba
 
 ![batman](http://1.bp.blogspot.com/-z0lXpuKOQXQ/UFZE-PjgIPI/AAAAAAAADrM/HrzTbznSYFI/s1600/famous-cartoon-character-batman.jpg)
 
+## Notice
+
+I'm abandoning this project in favor of using big Makefiles instead.
+
 ## Usage
 
 Create a `.batman.yml` file in your repository.  You can set the name of the virtualenv to run, the temp directory used to store hashes, the list of files to check for updates, and the commands to run when those files change.   You can also provide a list of symlinks that should be created, if they aren't already.

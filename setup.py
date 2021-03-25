@@ -3,7 +3,7 @@
 import sys
 from setuptools import setup, find_packages
 
-install_requires = ['PyYAML==3.10', 'virtualenvwrapper==4.0'] #virtualenvwrapper 4.1.1 has broken packaging
+install_requires = ['PyYAML==5.4', 'virtualenvwrapper==4.0'] #virtualenvwrapper 4.1.1 has broken packaging
 
 if sys.version_info < (2, 7):
     install_requires += ['ordereddict==1.1', 'argparse==1.2.1']
